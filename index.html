@@ -8,12 +8,12 @@
 
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
       <script src="javascripts/all.js" type="text/javascript"></script>
 
       <script>
         $(function() {
-          setupLanguages(["shell","ruby","python"]);
+          setupLanguages(["shell"]);
         });
       </script>
   </head>
@@ -29,8 +29,6 @@
       <img src="images/logo.png" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -39,158 +37,599 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
             <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+        <h1 id="introduction">Introduction</h1>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>Welcome to the Everalbum API Documentation!</p>
 
-<p>This example API documentation page was created with <a href="http://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
+          <h1 id="environments">Environments</h1>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
+<p>There are currently two separate environments that we host our infrastructure in:</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight shell"><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<h3 id="staging">Staging</h3>
+<pre class="highlight shell"><code><span class="c"># Staging API URL</span>
+https://api-zoo.everalbum.com
 </code></pre>
 
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
+<p>Staging is our internal &ldquo;sandbox&rdquo; environment. Feel free to create as many accounts as you need. Things are allowed to break here.</p>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
-
-<p><aside class="notice">
-You must replace <code class="prettyprint">meowmeowmeow</code> with your personal API key.
-</aside></p>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
+<h3 id="production">Production</h3>
+<pre class="highlight shell"><code><span class="c"># Production API URL</span>
+https://api.everalbum.com
 </code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre><code class="highlight shell">curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<p>Production is what our users see. Do <code class="prettyprint">NOT</code> use production to build new features or test things that could cause adverse behavior. Avoid creating new accounts in production unless you have a good reason to.</p>
+
+<aside class="notice">
+The API URL will be referred to as `API_URL` from this point forward in these docs.
+</aside>
+
+          <h1 id="authentication">Authentication</h1>
+
+<aside class="notice">
+An `auth_token` is required to use the Everalbum API.
+</aside>
+
+<p>There are two ways to get an <code class="prettyprint">auth_token</code>: <br /><br />
+<ul>
+  <li>Registering for the first time</li>
+  <li>Logging in an existing user</li>
+</ul></p>
+
+<p>Registration and Login requests are detailed below, the response for each of them is the same (a <code class="prettyprint">user</code> response). The details of that response are below the Registration and Login request examples.</p>
+
+<h2 id="registration">Registration</h2>
+
+<p><code class="prettyprint">POST http://API_URL/users.json</code></p>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>The HTTP Request parameters required for registering a user are:</p>
 </blockquote>
-<pre><code class="highlight json"><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@email.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pa$$w0rd"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">GET http://example.com/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<h2 id="login">Login</h2>
+
+<p><code class="prettyprint">POST http://API_URL/users/sign_in.json</code></p>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@email.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pa$$w0rd"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h2 id="user-authentication-response">User Authentication Response</h2>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"auth_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GYbny3Q9Toak34Kxqd4Q"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T12:59:30Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johndoe@email.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"email_provider"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"fb_access_token"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"fb_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"features"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"free_space_push"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"detect_faces"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"welcome_email"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"new_photos_push"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"detour_upload"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"upload_videos"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recent_photos_email"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"album_clustering"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"throwbacks"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"nps_followup_email"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"initial_backup_email"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">256</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"locale"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w">     </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"upload_originals"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"upload_videos"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"photo_limit"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"referral_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f619f420"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"basic"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This response is returned whenever a user is successfully authenticated against the Everalbum API.</p>
+
+<p>As you can see, there are a lot of properties in this response. The one you&rsquo;ll be most interested in is <code class="prettyprint">auth_token</code></p>
+
+<p>You&rsquo;ll want to store the <code class="prettyprint">auth_token</code>. The API expects the <code class="prettyprint">auth_token</code> to be included in all requests.</p>
+
+<p>You can specify the user&rsquo;s <code class="prettyprint">auth_token</code> in one of two ways.</p>
+
+<h2 id="authenticating-api-calls">Authenticating API Calls</h2>
+
+<h3 id="query-parameter">Query Parameter</h3>
+<pre class="highlight shell"><code><span class="c"># Appended to the URL as a query parameter</span>
+https://API_URL/:endpoint.json?auth_token<span class="o">=</span>AUTH_TOKEN
+</code></pre>
+
+<p>You can append the authenticated user&rsquo;s <code class="prettyprint">auth_token</code> to each URL per the API request</p>
+
+<h3 id="request-header">Request Header</h3>
+<pre class="highlight shell"><code><span class="c"># HTTP Header</span>
+Authorization: TBD - needs documentation
+</code></pre>
+
+<p>You can also send the <code class="prettyprint">auth_token</code> as an HTTP Request Header</p>
+
+          <h1 id="memorables">Memorables</h1>
+
+<h2 id="what-is-a-memorable">What is a <code class="prettyprint">memorable</code>?</h2>
+
+<p>A memorable is an abstract model that represents content within Everalbum. It is the base class which is inherited by the three concrete models explained below.</p>
+
+<h3 id="item"><code class="prettyprint">Item</code></h3>
+
+<p>(Should just be called a &ldquo;photo&rdquo;)</p>
+
+<h3 id="flipbook"><code class="prettyprint">Flipbook</code></h3>
+
+<p>A collection of photos (items). These are displayed as an animation, similar to an Animated GIF (pronounced &lsquo;JIF&rsquo;))</p>
+
+<p>A Flipbook contains images (minimum of three) that were taken within a few moments of each other in the same aspect ratio</p>
+
+<h3 id="video"><code class="prettyprint">Video</code></h3>
+
+<p>Just a video :)</p>
+
+<h2 id="memorable-creation-request">Memorable Creation Request</h2>
+
+<p><code class="prettyprint">POST http://API_URL/memorables.json</code></p>
+
+<p><br /></p>
+
+<p><code class="prettyprint">memorables</code> are created on the server before the image or video itself is uploaded for a couple reasons:<br />
+<ul>
+  <li>We can cluster photos on the user&rsquo;s behalf before the content is uploaded and create albums for them based on metadata</li>
+  <li>We can help the client determine the best order in which the photos should be eventually uploaded for a better experience</li>
+</ul></p>
+
+<p><br /></p>
+
+<p>The <code class="prettyprint">memorable</code> creation process and payload can differ slightly per client:<br />
+<ul>
+  <li>Some clients will detect and create their own flipbooks (iOS for instance)</li>
+  <li>The source field is different based on the client that creates the memorables</li>
+</ul></p>
+
+<h3 id="base-request-parameters">Base Request Parameters</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+   </span><span class="nt">"create_flipbooks"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"timezone"</span><span class="p">:</span><span class="s2">"-08:00"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"memorables"</span><span class="p">:[</span><span class="w">
+     </span><span class="err">memorable_payloads</span><span class="w">
+   </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>The basic structure of this request looks like this:</p>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Required?</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>create_flipbooks</td>
+<td>NO</td>
+<td>true</td>
+<td>If set to false, the client is responsible for sending flipbook payloads to /memorables.json endpoint</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>timezone</td>
+<td>NO</td>
+<td>&ldquo;-08:00&rdquo;</td>
+<td>If not net, the server will use PST</td>
+</tr>
+<tr>
+<td>memorables</td>
+<td>YES</td>
+<td>NULL</td>
+<td>An array of memorable payloads as detailed below</td>
 </tr>
 </tbody></table>
 
-<p><aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside></p>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h3 id="memorable-creation-payloads">Memorable Creation Payloads</h3>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight python"><span class="kn">import</span> <span class="nn">kittn</span>
+<p>Each type of memorable, <code class="prettyprint">item</code>, <code class="prettyprint">flipbook</code>, <code class="prettyprint">video</code> has a specific payload which defines how it will be created.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre><code class="highlight shell">curl <span class="s2">"http://example.com/api/kittens/3"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre><code class="highlight json"><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+<h3 id="item-payload">Item Payload</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+   </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.505618"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2011-03-12 16:17:25"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"latitude"</span><span class="p">:</span><span class="s2">"38.03745"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"longitude"</span><span class="p">:</span><span class="s2">"-122.8032"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"ddaa2610cbd4f2591af15dbbb9850a61"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"source"</span><span class="p">:</span><span class="s2">"mobile"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Item"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves a specific kitten.</p>
+<p>Each <code class="prettyprint">Item</code> payload should consist of the following:</p>
 
-<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside></p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
+<th>Required?</th>
+<th>Default</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the cat to retrieve</td>
+<td>aspect_ratio</td>
+<td>YES</td>
+<td>NULL</td>
+<td>The aspect ratio of the image (width / height)</td>
+</tr>
+<tr>
+<td>captured_at</td>
+<td>YES</td>
+<td>NULL</td>
+<td>The image&rsquo;s EXIF date (when the image was taken)</td>
+</tr>
+<tr>
+<td>latitude</td>
+<td>NO</td>
+<td>NULL</td>
+<td>The latitude of where the image was taken</td>
+</tr>
+<tr>
+<td>longitude</td>
+<td>NO</td>
+<td>NULL</td>
+<td>The longitude of where the image was taken</td>
+</tr>
+<tr>
+<td>source</td>
+<td>YES</td>
+<td>NULL</td>
+<td>Options are currently [ desktop / mobile ]</td>
+</tr>
+<tr>
+<td>type</td>
+<td>YES</td>
+<td>NULL</td>
+<td>Should be set to &ldquo;Item&rdquo; when creating photo memorables</td>
+</tr>
+<tr>
+<td>original_asset_quickhash</td>
+<td>NO</td>
+<td>NULL</td>
+<td>A hash of a collection of metadata to uniquely identify an image</td>
+</tr>
+<tr>
+<td>original_asset_md5</td>
+<td>NO</td>
+<td>NULL</td>
+<td>The MD5 hash of the image this memorable represents</td>
 </tr>
 </tbody></table>
 
-          <h1 id='errors'>Errors</h1>
-<p><aside class="notice">This error section is stored in a separate file in <code class="prettyprint">includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the <code class="prettyprint">includes</code> folder and add them to the top of your <code class="prettyprint">index.md</code>&rsquo;s frontmatter. Files are included in the order listed.</aside></p>
+<p>You&rsquo;re only required to provide <code class="prettyprint">original_asset_quickhash</code> OR <code class="prettyprint">original_asset_md5</code> when creating Items. You may provide both if you choose.</p>
 
-<p>The Kittn API uses the following error codes:</p>
+<h3 id="flipbook-payload">Flipbook Payload</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+   </span><span class="nt">"source"</span><span class="p">:</span><span class="s2">"mobile"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Flipbook"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"flipbook_memorables_ordered_quickhashes"</span><span class="p">:[</span><span class="w">
+      </span><span class="s2">"a98dcdcd597e7f15b9d0056da1a2b964"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"b37a6e7035eaa96f670dbdd70754ed6b"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"12235f1573c63dac436cb8738e2deb42"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"80c52c14df5fc97da0c38f403d33b461"</span><span class="w">
+   </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Each <code class="prettyprint">Flipbook</code> payload should consist of the following:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required?</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>source</td>
+<td>YES</td>
+<td>NULL</td>
+<td>Options are currently [ desktop / mobile ]</td>
+</tr>
+<tr>
+<td>type</td>
+<td>YES</td>
+<td>NULL</td>
+<td>Should be set to &ldquo;Item&rdquo; when creating photo memorables</td>
+</tr>
+<tr>
+<td>flipbook_memorables_ordered_quickhashes</td>
+<td>YES</td>
+<td>NULL</td>
+<td>A list of the quickhashes for items that belong in this flipbook (ordered by captured_at)</td>
+</tr>
+</tbody></table>
+
+<p>Each <code class="prettyprint">item</code> represented within <code class="prettyprint">flipbook_memorables_ordered_quickhashes</code> should be listed before the <code class="prettyprint">flipbook</code> that contains them in the payload of the <code class="prettyprint">POST</code> to <code class="prettyprint">/memorables.json</code></p>
+
+<h3 id="video-payload">Video Payload</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+   </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.699"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2012-08-08 11:52:11"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"latitude"</span><span class="p">:</span><span class="s2">"65.68289"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"longitude"</span><span class="p">:</span><span class="s2">"-17.54893"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"abc123abc73b83d542c17deb71774920"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"source"</span><span class="p">:</span><span class="s2">"mobile"</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Video"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Each <code class="prettyprint">Video</code> payload should consist of the following:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required?</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>aspect_ratio</td>
+<td>YES</td>
+<td>NULL</td>
+<td>The aspect ratio of the video (width / height)</td>
+</tr>
+<tr>
+<td>captured_at</td>
+<td>YES</td>
+<td>NULL</td>
+<td>The video&rsquo;s date (when the video was taken)</td>
+</tr>
+<tr>
+<td>latitude</td>
+<td>NO</td>
+<td>NULL</td>
+<td>The latitude of where the video was taken</td>
+</tr>
+<tr>
+<td>longitude</td>
+<td>NO</td>
+<td>NULL</td>
+<td>The longitude of where the video was taken</td>
+</tr>
+<tr>
+<td>original_asset_quickhash</td>
+<td>NO</td>
+<td>NULL</td>
+<td>A hash of a collection of metadata to uniquely identify an video</td>
+</tr>
+<tr>
+<td>original_asset_md5</td>
+<td>NO</td>
+<td>NULL</td>
+<td>The MD5 hash of the video this memorable represents</td>
+</tr>
+<tr>
+<td>source</td>
+<td>YES</td>
+<td>NULL</td>
+<td>Options are currently [ desktop / mobile ]</td>
+</tr>
+<tr>
+<td>type</td>
+<td>YES</td>
+<td>NULL</td>
+<td>Should be set to &ldquo;Video&rdquo; when creating video memorables</td>
+</tr>
+</tbody></table>
+
+<p>You&rsquo;re only required to provide <code class="prettyprint">original_asset_quickhash</code> OR <code class="prettyprint">original_asset_md5</code> when creating Videos. You may provide both if you choose.</p>
+
+<h3 id="complete-request">Complete Request</h3>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+   </span><span class="nt">"create_flipbooks"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="nt">"memorables"</span><span class="p">:[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.333333"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2015-09-26 17:31:49"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"latitude"</span><span class="p">:</span><span class="s2">"20.92027"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"longitude"</span><span class="p">:</span><span class="s2">"-156.6951"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"a98dcdcd597e7f15b9d0056da1a2b964"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"source"</span><span class="p">:</span><span class="s2">"mobile"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Item"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.333333"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2015-09-26 17:31:49"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"latitude"</span><span class="p">:</span><span class="s2">"20.92027"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"longitude"</span><span class="p">:</span><span class="s2">"-156.6951"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"b37a6e7035eaa96f670dbdd70754ed6b"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"source"</span><span class="p">:</span><span class="s2">"mobile"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Item"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.333333"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2015-09-26 17:31:49"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"latitude"</span><span class="p">:</span><span class="s2">"20.92027"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"longitude"</span><span class="p">:</span><span class="s2">"-156.6951"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"12235f1573c63dac436cb8738e2deb42"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"source"</span><span class="p">:</span><span class="s2">"mobile"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Item"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.333333"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2015-09-26 17:31:49"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"latitude"</span><span class="p">:</span><span class="s2">"20.92027"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"longitude"</span><span class="p">:</span><span class="s2">"-156.6951"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"80c52c14df5fc97da0c38f403d33b461"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"source"</span><span class="p">:</span><span class="s2">"mobile"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Item"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.505618"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2011-03-12 16:17:25"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"latitude"</span><span class="p">:</span><span class="s2">"38.03745"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"longitude"</span><span class="p">:</span><span class="s2">"-122.8032"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"ddaa2610cbd4f2591af15dbbb9850a61"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"source"</span><span class="p">:</span><span class="s2">"mobile"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Item"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.699"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2012-08-08 11:52:11"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"latitude"</span><span class="p">:</span><span class="s2">"65.68289"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"longitude"</span><span class="p">:</span><span class="s2">"-17.54893"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"abc123abc73b83d542c17deb71774920"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"source"</span><span class="p">:</span><span class="s2">"mobile"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Video"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nt">"flipbook_memorables_ordered_quickhashes"</span><span class="p">:[</span><span class="w">
+            </span><span class="s2">"a98dcdcd597e7f15b9d0056da1a2b964"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"b37a6e7035eaa96f670dbdd70754ed6b"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"12235f1573c63dac436cb8738e2deb42"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"80c52c14df5fc97da0c38f403d33b461"</span><span class="w">
+         </span><span class="p">],</span><span class="w">
+         </span><span class="nt">"source"</span><span class="p">:</span><span class="s2">"mobile"</span><span class="p">,</span><span class="w">
+         </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Flipbook"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nt">"timezone"</span><span class="p">:</span><span class="s2">"-08:00"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This is an example of a complete request to create <code class="prettyprint">memorables</code>.</p>
+
+<p>The request consists of:<br />
+<ul>
+  <li>5 Images</li>
+  <li>1 Video</li>
+  <li>1 Flipbook (containing 4 of the 5 images)</li>
+</ul></p>
+
+<p><br /></p>
+
+<p>Notice the order in which the <code class="prettyprint">memorables</code> are listed to be created:<br />
+<ol>
+  <li>Items</li>
+  <li>Videos</li>
+  <li>Flipbooks</li>
+</ol></p>
+
+<h2 id="memorable-creation-response">Memorable Creation Response</h2>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.33"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2015-09-26 17:31:49"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"has_active_asset"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"has_original_asset"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">202907</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"original_asset_md5"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"12235f1573c63dac436cb8738e2deb42"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Item"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.33"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2015-09-26 17:31:49"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"has_active_asset"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"has_original_asset"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">202899</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"original_asset_md5"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"80c52c14df5fc97da0c38f403d33b461"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Item"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.33"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2015-09-26 17:31:49"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"has_active_asset"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"has_original_asset"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">202900</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"original_asset_md5"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"a98dcdcd597e7f15b9d0056da1a2b964"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Item"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.33"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2015-09-26 17:31:49"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"has_active_asset"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"has_original_asset"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">202903</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"original_asset_md5"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"b37a6e7035eaa96f670dbdd70754ed6b"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Item"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.51"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2011-03-12 16:17:25"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"has_active_asset"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"has_original_asset"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">202901</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"original_asset_md5"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"ddaa2610cbd4f2591af15dbbb9850a61"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Item"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.699"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2012-08-08 11:52:11"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"has_active_asset"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"has_original_asset"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">202902</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"original_asset_md5"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"original_asset_quickhash"</span><span class="p">:</span><span class="s2">"abc123abc73b83d542c17deb71774920"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Video"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"aspect_ratio"</span><span class="p">:</span><span class="s2">"1.33"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"captured_at"</span><span class="p">:</span><span class="s2">"2015-09-26 17:31:49"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"flipbook_memorables"</span><span class="p">:[</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">33340</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"memorable_id"</span><span class="p">:</span><span class="mi">202903</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">33339</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"memorable_id"</span><span class="p">:</span><span class="mi">202900</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">33338</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"memorable_id"</span><span class="p">:</span><span class="mi">202899</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">33337</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"memorable_id"</span><span class="p">:</span><span class="mi">202907</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="mi">202908</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"Flipbook"</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<p>The response contains a variety of parameters about a <code class="prettyprint">memorable</code>. The most important one that clients will be interested in is the <code class="prettyprint">id</code> parameter. This is the new remote identifier that the backend will identify the <code class="prettyprint">memorable</code> by</p>
+
+          <h1 id="errors">Errors</h1>
+
+<p>The Everalbum API tries to use the most appropriate HTTP Status Code for a given response. These are some examples of what might be wrong if you&rsquo;re getting an error. This is by no means extensive and per-endpoint error expectations should be documented in the future.</p>
 
 <table><thead>
 <tr>
@@ -204,43 +643,31 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
+<td>Unauthorized &ndash; Your auth_token is wrong</td>
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+<td>Forbidden &ndash; You&rsquo;re not allowed to access this content</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
+<td>Not Found &ndash; The resource was not found or doesn&rsquo;t exist</td>
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
+<td>Method Not Allowed &ndash; You tried to access a something with the wrong HTTP verb</td>
 </tr>
 <tr>
 <td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slown down!</td>
+<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t JSON</td>
 </tr>
 <tr>
 <td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
+<td>Internal Server Error &ndash; The server blew up while handling your response. Possibly a mal-formed request or issue with the API.</td>
 </tr>
 <tr>
 <td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td>Service Unavailable &ndash; We&rsquo;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
 </tbody></table>
 
@@ -248,8 +675,6 @@ Remember — a happy kitten is an authenticated kitten!
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
           </div>
       </div>
     </div>
